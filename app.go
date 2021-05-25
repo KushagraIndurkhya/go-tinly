@@ -16,9 +16,9 @@ type App struct {
 }
 
 func Initialize(a *App) {
+	config.Init()
 	redis.Connect()
 	psql.Connect()
-	config.Init()
 
 	a.Redis_DB = redis.Url_db
 	a.PSQL_DB = psql.PSQL_DB

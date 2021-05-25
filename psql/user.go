@@ -2,6 +2,7 @@ package psql
 
 import (
 	"errors"
+	"log"
 
 	"github.com/KushagraIndurkhya/go-tinly/models"
 	"github.com/jinzhu/gorm"
@@ -27,4 +28,25 @@ func Get(id string) (*models.User, error) {
 		return nil, result.Error
 	}
 	return ret, nil
+}
+
+func Add_URL(id string, url string) error {
+
+	tup := models.User_URL{Short: url, Created_by: id, Health: true}
+	err := PSQL_DB.Debug().Create(&tup).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func Get_URLs(id string) ([]string, error) {
+	var urls []string
+	result := PSQL_DB.Find(&urls, "Created_by = ?", id)
+
+	if result.Error != nil {
+		log.Print(result.Error)
+		return nil, result.Error
+	}
+	return urls, nil
 }
