@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	redis "github.com/KushagraIndurkhya/go-tinly/db"
+	redis "github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	"github.com/KushagraIndurkhya/go-tinly/utills"
 )
 

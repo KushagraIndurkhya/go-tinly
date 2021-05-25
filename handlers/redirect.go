@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	redis "github.com/KushagraIndurkhya/go-tinly/db"
+	redis "github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	"github.com/gorilla/mux"
 )
 
