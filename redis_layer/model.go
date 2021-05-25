@@ -20,7 +20,3 @@ func Get_Val(u *Url_req) (string, error) {
 	}
 	return string(res), nil
 }
-
-// func Get_Url(val string) (*Url_req,error){
-
-// }

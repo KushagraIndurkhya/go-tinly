@@ -4,7 +4,6 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/lib/pq"
 )
 
 type User struct {
@@ -12,7 +11,7 @@ type User struct {
 	Email string
 	Name  string
 	Limit int
-	URL   pq.StringArray `gorm:"type:varchar(64)[]"`
+	// URL   pq.StringArray `gorm:"type:varchar(64)[]"`
 	//TODO: Add Access & Refresh token
 }
 type UserInfo struct {
@@ -26,7 +25,7 @@ type User_URL struct {
 
 	Short      string
 	Created_by string
-	Health     bool
+	// Health     bool
 }
 
 type URL_INFO struct {

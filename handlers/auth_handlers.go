@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/KushagraIndurkhya/go-tinly/config"
-	"github.com/KushagraIndurkhya/go-tinly/middleware"
 	"github.com/KushagraIndurkhya/go-tinly/models"
 	psql "github.com/KushagraIndurkhya/go-tinly/psql"
 	"github.com/KushagraIndurkhya/go-tinly/utills"
@@ -62,15 +61,15 @@ func Test(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func Dash(w http.ResponseWriter, r *http.Request) {
-	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
+// func Dash(w http.ResponseWriter, r *http.Request) {
+// 	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
 
-	if id == "" {
-		// ctx := context.WithValue(r.Context(), "redirect", r.URL)
-		http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
-	} else {
-		UserInfo, _ := psql.Get(id)
-		w.Write([]byte(UserInfo.Email))
-		fmt.Print(UserInfo)
-	}
-}
+// 	if id == "" {
+// 		// ctx := context.WithValue(r.Context(), "redirect", r.URL)
+// 		http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
+// 	} else {
+// 		UserInfo, _ := psql.Get(id)
+// 		w.Write([]byte(UserInfo.Email))
+// 		fmt.Print(UserInfo)
+// 	}
+// }
