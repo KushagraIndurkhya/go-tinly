@@ -1,23 +1,19 @@
 package main
 
 import (
-	"fmt"
-
 	redis "github.com/KushagraIndurkhya/go-tinly/db"
+	r "github.com/go-redis/redis"
 	"github.com/gorilla/mux"
 )
 
 type App struct {
 	Router *mux.Router
-	DB     *redis.Redis_Client
+	DB     *r.Client
 }
 
 func Initialize(a *App) {
-	client, err := redis.Connect()
-	if err != nil {
-		fmt.Println(err)
-	}
+	redis.Connect()
 
-	a.DB = client
+	a.DB = redis.Url_db
 	a.Router = mux.NewRouter()
 }

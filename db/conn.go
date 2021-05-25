@@ -2,16 +2,15 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/go-redis/redis"
 )
 
-type Redis_Client struct {
-	Url_db *redis.Client
-}
+var Url_db *redis.Client
 
-func Connect() (*Redis_Client, error) {
+func Connect() {
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     os.Getenv("REDIS_URL"),
@@ -21,9 +20,8 @@ func Connect() (*Redis_Client, error) {
 
 	_, err := client.Ping().Result()
 	if err != nil {
-		return nil, err
+		log.Fatal("Redis Not Connected")
 	}
 	fmt.Println("DB Connected")
-	res := &(Redis_Client{client})
-	return res, nil
+	Url_db = client
 }

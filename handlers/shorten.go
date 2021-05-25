@@ -21,25 +21,21 @@ type request struct {
 	Url string `json:"url"`
 }
 
-func Create(db *redis.Redis_Client) http.HandlerFunc {
-	fn := func(w http.ResponseWriter, r *http.Request) {
+func Create(w http.ResponseWriter, r *http.Request) {
 
-		var req request
-		decoder := json.NewDecoder(r.Body)
-		err := decoder.Decode(&req)
-		if err != nil {
-			panic(err)
-		}
-		a := redis.Url_req{Url: req.Url, Count: 0, Created_by: "me"}
-		key, _ := redis.Set(db, &a)
-
-		rs := response{Url: req.Url, Short: key, Created_at: utills.CurrTime()}
-		res, err := json.Marshal(&rs)
-		if err != nil {
-			fmt.Println("error in encoding")
-		}
-		w.Write(res)
+	var req request
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&req)
+	if err != nil {
+		panic(err)
 	}
-	return http.HandlerFunc(fn)
+	a := redis.Url_req{Url: req.Url, Count: 0, Created_by: "me"}
+	key, _ := redis.Set(&a)
 
+	rs := response{Url: req.Url, Short: key, Created_at: utills.CurrTime()}
+	res, err := json.Marshal(&rs)
+	if err != nil {
+		fmt.Println("error in encoding")
+	}
+	w.Write(res)
 }
