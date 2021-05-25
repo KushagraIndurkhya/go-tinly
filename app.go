@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/KushagraIndurkhya/go-tinly/config"
 	"github.com/KushagraIndurkhya/go-tinly/psql"
 	redis "github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	r "github.com/go-redis/redis"
@@ -17,6 +18,7 @@ type App struct {
 func Initialize(a *App) {
 	redis.Connect()
 	psql.Connect()
+	config.Init()
 
 	a.Redis_DB = redis.Url_db
 	a.PSQL_DB = psql.PSQL_DB

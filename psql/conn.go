@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/KushagraIndurkhya/go-tinly/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -22,5 +23,7 @@ func Connect() {
 	} else {
 		log.Printf("Users DB Connected")
 	}
+	db.Debug().AutoMigrate(models.User{})
 	PSQL_DB = db
+
 }
