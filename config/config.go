@@ -27,7 +27,7 @@ func Init() {
 	RandomState = utills.GenKey(7)
 
 	PSQL_DSN = fmt.Sprintf(
-		"host=%s port=%s user=%s sslmode=disable dbname=%s password=%s",
+		"host=%s port=%s user=%s dbname=%s password=%s",
 		os.Getenv("PSQL_HOST"),
 		os.Getenv("PSQL_PORT"),
 		os.Getenv("PSQL_USER"),

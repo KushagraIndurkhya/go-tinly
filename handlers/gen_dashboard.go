@@ -17,11 +17,23 @@ type resp struct {
 }
 
 func Dash(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
-
 	if id == "" {
-		// ctx := context.WithValue(r.Context(), "redirect", r.URL)
-		http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
+		resp := make(map[string]interface{})
+		resp["status"] = "fail"
+		resp["error"] = "User Not Logged in"
+		json_resp, err := json.Marshal(resp)
+		if err != nil {
+			log.Fatal(err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(json_resp))
+
+		// http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
 	} else {
 		info, _ := psql.Get(id)
 		url_arr, _ := psql.Get_URLs(id)

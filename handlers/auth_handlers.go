@@ -51,7 +51,7 @@ func HandleCallback(w http.ResponseWriter, r *http.Request) {
 	cookie, _ := utills.Make_Cookie(s.Id)
 	http.SetCookie(w, cookie)
 	//Redirect to Home
-	http.Redirect(w, r, "/app/dash", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, "/home", http.StatusTemporaryRedirect)
 }
 
 func Test(w http.ResponseWriter, r *http.Request) {
@@ -60,16 +60,3 @@ func Test(w http.ResponseWriter, r *http.Request) {
 	<a href="\login"> Google Login</a>`))
 
 }
-
-// func Dash(w http.ResponseWriter, r *http.Request) {
-// 	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
-
-// 	if id == "" {
-// 		// ctx := context.WithValue(r.Context(), "redirect", r.URL)
-// 		http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
-// 	} else {
-// 		UserInfo, _ := psql.Get(id)
-// 		w.Write([]byte(UserInfo.Email))
-// 		fmt.Print(UserInfo)
-// 	}
-// }
