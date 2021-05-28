@@ -54,6 +54,8 @@ func (app *App) Run() {
 	fmt.Printf("Starting Server On Port%s...\n", port)
 	log.Fatalln(http.ListenAndServe(port, app.Router))
 }
+
 func index(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("fff")
 	http.ServeFile(w, r, "client/build/Index.html")
 }

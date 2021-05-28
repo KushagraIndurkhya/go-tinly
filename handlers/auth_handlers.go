@@ -51,7 +51,7 @@ func HandleCallback(w http.ResponseWriter, r *http.Request) {
 	cookie, _ := utills.Make_Cookie(s.Id)
 	http.SetCookie(w, cookie)
 	//Redirect to Home
-	http.Redirect(w, r, "/home", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 }
 
 func Test(w http.ResponseWriter, r *http.Request) {
