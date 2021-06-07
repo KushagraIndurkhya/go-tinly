@@ -14,7 +14,8 @@ import (
 )
 
 type request struct {
-	Url string `json:"url"`
+	Url    string `json:"url"`
+	Expiry int64  `json:"expiry"`
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +51,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		// http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
 	} else {
 
-		a := redis.Url_req{Url: req.Url, Created_by: id, Created_at: utills.CurrTime()}
+		a := redis.Url_req{Url: req.Url, Created_by: id, Created_at: utills.CurrTime(), Expiry: req.Expiry}
 		key, err := redis.Set(&a)
 		if err != nil {
 			log.Fatal(err)

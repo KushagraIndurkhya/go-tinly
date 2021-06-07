@@ -2,6 +2,7 @@ package redis_layer
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/KushagraIndurkhya/go-tinly/utills"
 )
@@ -13,7 +14,7 @@ func Set(req *Url_req) (string, error) {
 		return "", err
 	}
 	key := utills.GenKey(5)
-	err = Url_db.Set(key, val, 0).Err()
+	err = Url_db.Set(key, val, time.Duration(req.Expiry)*time.Second).Err()
 	if err != nil {
 		fmt.Print(req, "unable to set URL")
 		return "", err

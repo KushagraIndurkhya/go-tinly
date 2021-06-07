@@ -3,7 +3,7 @@ import './../css/url_div.css'
 export default function Dashboard(props) {
   const BASE = 
   // process.env.BASE_URL
-  'https://go-tinly.herokuapp.com/'
+  'https://go-tinly.herokuapp.com'
   +'/r/'
   return (
 

@@ -9,6 +9,7 @@ type Url_req struct {
 	Url        string
 	Created_by string
 	Created_at int64
+	Expiry     int64
 }
 
 func Get_Val(u *Url_req) (string, error) {

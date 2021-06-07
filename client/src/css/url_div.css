@@ -1,32 +1,63 @@
 @media only screen and (max-width: 768px) {
     /* For desktop: */
     /* .Url_tab{flex-direction: column;} */
-    .Inp_holder{width: 100%;}
-    .Btn_holder{width: 50%s;}
-    .Url_tab{align-items: flex-start;border: 4px;border-color: bisque;}
-    .Short,.Long,.Hit {flex :100%;text-align: left;}
+    .Inp_holder {
+        width: 100%;
+    }
+    .Btn_holder {
+        width: 50%s;
+    }
+    .Url_tab {
+        align-items: flex-start;
+        border: 4px;
+        border-color: bisque;
+    }
+    .Short,
+    .Long,
+    .Hit {
+        flex: 100%;
+        text-align: left;
+    }
+}
 
-    
-   
-  }
-
-.Url_inp{
+.Url_inp {
     padding-left: 20vw;
     padding-right: 20vw;
     padding-top: 10vh;
     padding-bottom: 5vh;
+    margin: auto;
+    align-items: center;
+    height: max-content;
+    /* background-color: black; */
+    justify-items: stretch;
 }
 
-
-
-.Inp_holder{
-    width: 85%;
+.Inp_holder {
+    width: 100%;
+    height: auto;
+    background-color: white;
 }
 
-.Btn_holder{
-    width: 15%;
-    height: 100%;
-    background-color: #4CAF50;
+.dropdown_holder {
+    width: 100%;
+    height: auto;
+    color: aliceblue;
+    background-color: burlywood;
+    padding: 0.2em;
+    margin: 0.1em 0.2em;
+    align-self: flex-start;
+    /* background-color: greenyellow; */
+}
+
+.Select {
+    color: aliceblue
+}
+
+.Btn_holder {
+    width: 8%;
+    height: auto;
+    padding: 0.2em;
+    margin: 0.1em 0.2em;
     border: none;
     color: white;
     text-align: center;
@@ -34,46 +65,41 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.Url_tab_container{
+.Url_tab_container {
     padding-left: 20vw;
     padding-right: 20vw;
     /* background-color: */
 }
 
-.Url_tab{
-
+.Url_tab {
     width: 100%;
     display: flex;
     flex-wrap: break-word;
-
     align-items: center;
     overflow-wrap: break-word;
-
     margin-top: 1vh;
     margin-bottom: 1vh;
     font-family: 'Courier New', Courier, monospace;
     color: azure;
-
 }
-.Short{
+
+.Short {
     flex: 50%;
     text-decoration: none;
     text-align: center;
     flex-wrap: break-word;
     word-break: break-all;
-
 }
-.Long{
+
+.Long {
     flex: 35%;
-    
     text-align: center;
     flex-wrap: break-word;
     word-break: break-all;
-
 }
-.Hits{
+
+.Hits {
     flex: 15%;
     text-align: center;
     color: #4CAF50;
-
 }
