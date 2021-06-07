@@ -1,8 +1,6 @@
-*.env
 *.bat
 todo
 dockerfile
-/client
+docker-compose.yml
 *.exe
 heroku.yml
-procfile

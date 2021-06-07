@@ -3,7 +3,6 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 
@@ -20,19 +19,22 @@ type request struct {
 
 func Create(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "POST")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	// w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	// w.Header().Set("Access-Control-Allow-Methods", "POST")
+	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
+
+	fmt.Printf("ID:%s", id)
 
 	var req request
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&req)
+	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
-	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
-	fmt.Print(io.ReadAll(r.Body))
+
+	fmt.Print(req.Url)
 	if id == "" {
 		resp := make(map[string]interface{})
 		resp["status"] = "fail"

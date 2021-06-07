@@ -3,13 +3,12 @@ package redis_layer
 import (
 	"encoding/json"
 	"fmt"
-	"time"
 )
 
 type Url_req struct {
 	Url        string
 	Created_by string
-	Created_at time.Time
+	Created_at int64
 }
 
 func Get_Val(u *Url_req) (string, error) {

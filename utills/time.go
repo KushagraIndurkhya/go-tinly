@@ -1,11 +1,21 @@
 package utills
 
-import "time"
+import (
+	"time"
+)
 
-func CurrTime() time.Time {
-	loc, _ := time.LoadLocation("Asia/Kolkata")
-	now := time.Now().In(loc)
+func CurrTime() int64 {
+	// loc, err := time.LoadLocation("Asia/Kolkata")
+	// if err != nil {
 
-	return now
+	// 	log.Print(err)
+
+	// }
+	// now := time.Now().In(loc)
+
+	now := time.Now()
+	secs := now.Unix()
+
+	return secs
 
 }

@@ -13,9 +13,19 @@ var (
 	GoogleOauthConfig *oauth2.Config
 	RandomState       string
 	PSQL_DSN          string
+	REDIS_URL         string
+	REDIS_PASS        string
+	PORT              string
 )
 
 func Init() {
+
+	// err := godotenv.Load(".env")
+
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file")
+	// }
+
 	GoogleOauthConfig = &oauth2.Config{
 		RedirectURL:  os.Getenv("REDIRECT_URL"),
 		ClientID:     os.Getenv("CLIENT_ID"),
@@ -33,5 +43,9 @@ func Init() {
 		os.Getenv("PSQL_USER"),
 		os.Getenv("PSQL_DB"),
 		os.Getenv("PSQL_PASS"))
+
+	REDIS_PASS = os.Getenv("REDIS_PASS")
+	REDIS_URL = os.Getenv("REDIS_URL")
+	PORT = ":" + os.Getenv("PORT")
 
 }

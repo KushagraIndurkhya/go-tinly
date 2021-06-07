@@ -2,8 +2,8 @@ package redis_layer
 
 import (
 	"log"
-	"os"
 
+	"github.com/KushagraIndurkhya/go-tinly/config"
 	"github.com/go-redis/redis"
 )
 
@@ -12,8 +12,8 @@ var Url_db *redis.Client
 func Connect() {
 
 	client := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("REDIS_URL"),
-		Password: os.Getenv("REDIS_PASS"),
+		Addr:     config.REDIS_URL,
+		Password: config.REDIS_PASS,
 		DB:       0,
 	})
 

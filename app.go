@@ -44,18 +44,18 @@ func (app *App) Init() {
 	app.Router.HandleFunc("/callback-gl", handlers.HandleCallback)
 	app.Router.HandleFunc("/api/dash", middleware.Auth(handlers.Dash))
 
-	buildHandler := http.FileServer(http.Dir("client/build"))
+	curr_dir, _ := os.Getwd()
+	fmt.Printf("Serving %s...\n", curr_dir+"build")
+	buildHandler := http.FileServer(http.Dir(curr_dir + "build"))
 	app.Router.PathPrefix("/").Handler(buildHandler)
 	app.Router.HandleFunc("/home", index).Methods("GET")
 
 }
 func (app *App) Run() {
-	port := os.Getenv("PORT")
-	fmt.Printf("Starting Server On Port%s...\n", port)
-	log.Fatalln(http.ListenAndServe(port, app.Router))
+	fmt.Printf("Starting Server On Port%s...\n", config.PORT)
+	log.Fatalln(http.ListenAndServe(config.PORT, app.Router))
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("fff")
-	http.ServeFile(w, r, "client/build/Index.html")
+	http.ServeFile(w, r, "./build/Index.html")
 }

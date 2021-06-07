@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -29,9 +27,9 @@ type User_URL struct {
 }
 
 type URL_INFO struct {
-	Url        string    `json:"url"`
-	Short      string    `json:"short_url"`
-	Count      int       `json:"Hits"`
-	Created_by string    `json:"Created_by,omitempty"`
-	Created_at time.Time `json:"Created_at"`
+	Url        string `json:"url"`
+	Short      string `json:"short_url"`
+	Count      int    `json:"Hits"`
+	Created_by string `json:"Created_by,omitempty"`
+	Created_at int64  `json:"Created_at"`
 }
