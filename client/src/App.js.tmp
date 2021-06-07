@@ -1,0 +1,86 @@
+import React, { Component, Link } from 'react';
+import axios from 'axios';
+import Loading from './component/Loading';
+import GoogleButton from 'react-google-button';
+import './css/App.css'
+import './css/url_div.css'
+import Login from './views/login';
+import Url_Inp from './component/Url_inp';
+
+
+const API_URL = 'http://localhost:8080/api/dash';
+
+class App extends Component {
+  state = {
+    isLoggedIn: -1,
+    info: "",
+    urli: ""
+
+  }
+  
+  componentDidMount() {
+    const url = `${API_URL}`;
+    axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    }).then(response => response.data)
+      .then((data) => {
+        console.log(data)
+        if (data.status != "fail") {
+          console.log(data)
+          this.setState({ isLoggedIn: 1, info: data.userInfo, urli: data.urls })
+        }
+      }).catch((error) => {
+        console.log("error")
+        this.setState({ isLoggedIn: 0 })
+        console.log(this.state)
+      })
+  }
+  render() {
+    switch (this.state.isLoggedIn) {
+      case -1: return <Loading />
+      case 1: return (
+      <div>
+        <Url_Inp />
+        
+          <div className="Url_tab_container">
+            
+          {this.state.urli.map(u => <div className="Url_tab">{u.short_url}</div>)}
+          </div>
+
+
+      </div>)
+      case 0:
+        return (
+          <div className="App">
+            <p style={{
+              color: "white",
+              fontWeight:"bold",
+              padding: "10px",
+              fontSize: "80px",
+              fontFamily: "Roboto"
+            
+            }} > Go-tinly</p>
+
+            <p style={{
+              color: "white",
+              padding: "10px",
+              fontSize: "30px",
+              fontFamily: "Roboto",
+            }} > Shorten your URLs</p>
+
+            <div className="ButtonDiv">
+              <a href=" http://localhost:8080/login">
+                <GoogleButton /></a>
+            </div>
+
+            
+          </div>
+        );
+    }
+  }
+}
+
+export default App;
