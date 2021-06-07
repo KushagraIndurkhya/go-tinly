@@ -1,6 +1,5 @@
 todo
-dockerfile
-docker-compose.yml
 *.exe
 *.bat
-heroku.yml
+*.env
+*.conf
