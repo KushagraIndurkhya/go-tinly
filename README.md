@@ -5,9 +5,9 @@ URL Shortener with following functionalities:
 - A Dashboards showing your active shortened urls
 - Keep track of the number of clicks on the shortened url link
 
-https://go-tinly.herokuapp.com/
+Deployed here: https://go-tinly.herokuapp.com/
 
-A url shortener built from scratch using :
+Built using :
 - Golang for backend
 - Redis for URL db
 - Google auth for user authentication with Postgres as db
