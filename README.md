@@ -1,5 +1,9 @@
 # go-tinly
-URL Shortener
+URL Shortener with following functionalities:
+- Shorten a url
+- Set Expiry time for the shortened url
+- A Dashboards showing your active shortened urls
+- Keep track of the number of clicks on the shortened url link
 
 https://go-tinly.herokuapp.com/
 
