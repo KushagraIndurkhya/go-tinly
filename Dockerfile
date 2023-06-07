@@ -19,4 +19,4 @@ COPY --from=node_builder /build ./build
 
 RUN chmod +x ./main
 EXPOSE 8080
-CMD ./app
+CMD ./main
