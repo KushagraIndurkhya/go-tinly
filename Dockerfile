@@ -4,7 +4,8 @@ RUN apk update && apk add --no-cache git
 ADD . /app
 WORKDIR /app/server
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-w" -a -o /main .
+# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-w" -a -o app .
+RUN go build .
 
 FROM node:alpine AS node_builder
 COPY --from=builder /app/client ./
@@ -13,10 +14,9 @@ RUN npm run build
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
-COPY --from=builder /main ./
+COPY --from=builder /app/server/app .
 COPY --from=node_builder /build ./build
 
-ENV PORT=":8080"
-RUN chmod +x ./main
+RUN chmod +x ./app
 EXPOSE 8080
-CMD ./main
+CMD ./app

@@ -19,7 +19,7 @@ func Connect() {
 
 	_, err := client.Ping().Result()
 	if err != nil {
-		log.Fatal("Redis Not Connected")
+		log.Fatalf("Error connecting to Redis: %s", err)
 	}
 	log.Printf("URL DB Connected")
 	Url_db = client

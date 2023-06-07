@@ -14,6 +14,7 @@ import (
 	r "github.com/go-redis/redis"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
 )
 
 type App struct {
@@ -30,6 +31,10 @@ type Initialize interface {
 
 func (app *App) Init() {
 	fmt.Print("Initializing App...\n")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	config.Init()
 	redis.Connect()
 	psql.Connect()
@@ -45,8 +50,8 @@ func (app *App) Init() {
 	app.Router.HandleFunc("/api/dash", middleware.Auth(handlers.Dash))
 
 	curr_dir, _ := os.Getwd()
-	fmt.Printf("Serving %s...\n", curr_dir+"build")
-	buildHandler := http.FileServer(http.Dir(curr_dir + "build"))
+	fmt.Printf("Serving %s...\n", curr_dir+"/build")
+	buildHandler := http.FileServer(http.Dir(curr_dir + "/build"))
 	app.Router.PathPrefix("/").Handler(buildHandler)
 	app.Router.HandleFunc("/home", index).Methods("GET")
 
@@ -58,4 +63,12 @@ func (app *App) Run() {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./build/Index.html")
+}
+
+func main() {
+
+	app := new(App)
+	app.Init()
+	app.Run()
+
 }

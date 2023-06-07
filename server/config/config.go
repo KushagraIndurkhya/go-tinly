@@ -15,6 +15,7 @@ var (
 	PSQL_DSN          string
 	REDIS_URL         string
 	REDIS_PASS        string
+	REDIS_USER        string
 	PORT              string
 )
 
@@ -46,6 +47,7 @@ func Init() {
 
 	REDIS_PASS = os.Getenv("REDIS_PASS")
 	REDIS_URL = os.Getenv("REDIS_URL")
+	REDIS_USER = os.Getenv("REDIS_USER")
 	PORT = ":" + os.Getenv("PORT")
 
 }

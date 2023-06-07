@@ -14,3 +14,5 @@ Built using :
 - React for frontend
 - Running on Docker container
 - Deployed on heroku
+
+.env file
