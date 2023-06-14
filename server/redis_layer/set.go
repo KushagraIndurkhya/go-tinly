@@ -26,3 +26,11 @@ func Set(req *Url_req) (string, error) {
 	}
 	return key, nil
 }
+
+func CheckAvailability(req *Url_req) bool {
+	_, err := Url_db.Get(req.Url).Result()
+	if err != nil {
+		return false
+	}
+	return true
+}
