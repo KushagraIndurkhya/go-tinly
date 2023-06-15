@@ -28,6 +28,20 @@ func Set(req *Url_req,key string) (string, error) {
 	return key, nil
 }
 
+func Delete(key string) error {
+	err := Url_db.Del(key).Err()
+	if err != nil {
+		fmt.Print(key, "unable to delete URL")
+		return err
+	}
+	err = Url_db.Del(key + "-count").Err()
+	if err != nil {
+		fmt.Print(key, "unable to delete Count")
+		return err
+	}
+	return nil
+}
+
 func CheckAvailability(key string) bool {
 	_, err := Url_db.Get(key).Result()
 	if err != nil {

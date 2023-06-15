@@ -11,6 +11,7 @@ import (
 	"github.com/KushagraIndurkhya/go-tinly/psql"
 	redis "github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	utils "github.com/KushagraIndurkhya/go-tinly/utills"
+	"github.com/gorilla/mux"
 )
 
 type request struct {
@@ -98,7 +99,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 func Delete(w http.ResponseWriter, r *http.Request) {
 	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
-	key := r.URL.Query().Get("key")
+	vars := mux.Vars(r)
+	key := vars["key"]
 	if id == "" {
 		resp := make(map[string]interface{})
 		resp["status"] = "fail"
@@ -116,6 +118,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		err := psql.Del_URL(key)
 		if err != nil {
 			log.Print(err)
+		}
+		err = redis.Delete(key)
+		if err != nil {
 			resp := make(map[string]interface{})
 			resp["status"] = "fail"
 			resp["error"] = "Something Went Wrong"
