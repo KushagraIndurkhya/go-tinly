@@ -44,9 +44,9 @@ func (app *App) Init() {
 	app.Router = mux.NewRouter()
 
 	app.Router.HandleFunc("/r/{Short}", handlers.Redirect)
-	app.Router.HandleFunc("/api/create", middleware.Auth(handlers.Create))
-	app.Router.HandleFunc("/api/delete/{key}", middleware.Auth(handlers.Delete))
-	app.Router.HandleFunc("/api/check/{key}", middleware.Auth(handlers.CheckAvailability))
+	app.Router.HandleFunc("/api/create", middleware.Auth(handlers.Create)).Methods("POST")
+	app.Router.HandleFunc("/api/delete/{key}", middleware.Auth(handlers.Delete)).Methods("DELETE")
+	app.Router.HandleFunc("/api/check/{key}", middleware.Auth(handlers.CheckAvailability)).Methods("GET")
 	app.Router.HandleFunc("/login", handlers.HandleLogin)
 	app.Router.HandleFunc("/callback-gl", handlers.HandleCallback)
 	app.Router.HandleFunc("/api/dash", middleware.Auth(handlers.Dash))
