@@ -145,3 +145,39 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	}
 }
+
+func CheckAvailability(w http.ResponseWriter, r *http.Request) {
+	id := r.Context().Value(middleware.AuthenticatedUserID).(string)
+	vars := mux.Vars(r)
+	key := vars["key"]
+	if id == "" {
+		resp := make(map[string]interface{})
+		resp["status"] = "fail"
+		resp["error"] = "User Not Logged in"
+		json_resp, err := json.Marshal(resp)
+		if err != nil {
+			log.Print(err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(json_resp))
+
+		// http.Redirect(w, r, "/app/login", http.StatusTemporaryRedirect)
+	} else {
+		resp := make(map[string]interface{})
+		is_available := redis.CheckAvailability(key)
+		if is_available {
+			resp["status"] = "success"
+		}else{
+			resp["status"] = "fail"		
+		}
+		json_resp, err := json.Marshal(resp)
+		if err != nil {
+			log.Print(err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusAccepted)
+		w.Write([]byte(json_resp))
+	}
+}
+
