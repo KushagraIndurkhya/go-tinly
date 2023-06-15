@@ -278,7 +278,6 @@ export default function Url_Inp(props) {
           className="Btn_holder"
           sx={{
             color: "white",
-            
           }}
         >
           Go!
