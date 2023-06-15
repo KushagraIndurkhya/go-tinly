@@ -27,7 +27,7 @@ func Dash(w http.ResponseWriter, r *http.Request) {
 		resp["error"] = "User Not Logged in"
 		json_resp, err := json.Marshal(resp)
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusUnauthorized)
@@ -39,10 +39,9 @@ func Dash(w http.ResponseWriter, r *http.Request) {
 		url_arr, _ := psql.Get_URLs(id)
 		url_inf_arr := []models.URL_INFO_RESPONSE{}
 		for i := range url_arr {
-
-			inf, err := redis.Get_info(url_arr[i])
+			inf, err := redis.Get_info(&url_arr[i])
 			if err != nil {
-				psql.Del_URL(url_arr[i])
+				psql.Del_URL(url_arr[i].Short)
 			} else {
 				url_inf_arr = append(url_inf_arr, *inf)
 			}
@@ -52,7 +51,7 @@ func Dash(w http.ResponseWriter, r *http.Request) {
 		json_resp, err := json.Marshal(re)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusAccepted)
