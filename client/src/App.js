@@ -9,7 +9,7 @@ import Dashboard from "./views/dashboard";
 const BASE_URL = "http://localhost:8080/";
 
 export default function App() {
-  const [isLoggedIn, setisLoggedIn] = useState(1);
+  const [isLoggedIn, setisLoggedIn] = useState(-1);
   const [info, setinfo] = useState([]);
   const [urli, seturli] = useState([]);
   const [refresh, setrefresh] = useState(true);
@@ -34,12 +34,11 @@ export default function App() {
           setisLoggedIn(1);
           setinfo(data.userInfo);
           seturli(data.urls);
-        
         }
       })
       .catch((error) => {
         console.log("error");
-        setisLoggedIn(1);
+        setisLoggedIn(0);
       });
   }, [refresh]);
   switch (isLoggedIn) {

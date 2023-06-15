@@ -68,7 +68,15 @@ export default function Url_Inp(props) {
   };
 
   return (
-    <div className="Url_inp">
+    <div
+      style={{
+        backgroundColor: "#fff",
+        width: "80%",
+        borderRadius: "10px",
+        margin: "40px auto",
+        padding: "30px",
+      }}
+    >
       <Grid container spacing={2} alignItems="stretch">
         <Grid
           item
@@ -77,11 +85,12 @@ export default function Url_Inp(props) {
           }}
           xs={8}
         >
-          <input
+          <TextField
             type="text"
             onChange={myChangeHandler}
-            className="Inp_holder"
             placeholder="Enter URL Here"
+            variant="outlined"
+            fullWidth
           />
         </Grid>
 
@@ -93,9 +102,8 @@ export default function Url_Inp(props) {
           }}
           xs={3}
         >
-          <input
+          <TextField
             label="Short"
-            className="Inp_holder"
             value={apiData.short}
             onChange={(e) => {
               setApiData((prev) => {
@@ -105,6 +113,8 @@ export default function Url_Inp(props) {
                 };
               });
             }}
+            fullWidth
+            variant="outlined"
             placeholder="short"
           />
         </Grid>
@@ -119,7 +129,7 @@ export default function Url_Inp(props) {
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          //   justifyContent: "center",
           alignItems: "center",
           width: "100%",
           gap: "16px",
@@ -127,9 +137,9 @@ export default function Url_Inp(props) {
           flexWrap: "wrap",
         }}
       >
-        <input
+        <TextField
           label="Comments"
-          className="Inp_holder"
+          variant="outlined"
           value={apiData.Comments}
           onChange={(e) => {
             setApiData((prev) => {
@@ -142,9 +152,9 @@ export default function Url_Inp(props) {
           placeholder="Comments"
           style={{ width: "40%" }}
         />
-        <input
+        <TextField
           label="Medium"
-          className="Inp_holder"
+          variant="outlined"
           value={apiData.Medium}
           onChange={(e) => {
             setApiData((prev) => {
@@ -157,9 +167,9 @@ export default function Url_Inp(props) {
           placeholder="Medium"
           style={{ width: "40%" }}
         />
-        <input
+        <TextField
           label="Source"
-          className="Inp_holder"
+          variant="outlined"
           value={apiData.Source}
           onChange={(e) => {
             setApiData((prev) => {
@@ -172,9 +182,9 @@ export default function Url_Inp(props) {
           placeholder="Source"
           style={{ width: "40%" }}
         />
-        <input
+        <TextField
           label="Campaign"
-          className="Inp_holder"
+          variant="outlined"
           value={apiData.Campaign}
           onChange={(e) => {
             setApiData((prev) => {
@@ -187,9 +197,9 @@ export default function Url_Inp(props) {
           placeholder="Campaign"
           style={{ width: "40%" }}
         />
-        <input
+        <TextField
           label="Keyword"
-          className="Inp_holder"
+          variant="outlined"
           value={apiData.Keyword}
           onChange={(e) => {
             setApiData((prev) => {

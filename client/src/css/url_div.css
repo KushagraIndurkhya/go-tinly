@@ -35,7 +35,7 @@
 .Inp_holder {
     width: 100%;
     height: auto;
-    background-color: white;
+    /* background-color: white; */
 }
 
 .dropdown_holder {
@@ -62,7 +62,7 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
 }
 
 .Url_tab_container {
@@ -79,7 +79,7 @@
     overflow-wrap: break-word;
     margin-top: 1vh;
     margin-bottom: 1vh;
-    font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Courier New', Courier, monospace; */
     color: azure;
 }
 

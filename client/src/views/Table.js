@@ -11,6 +11,15 @@ import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+    "& .MuiTableCell-root": {
+      color: "black",
+      fontWeight: "600",
+      fontSize: "1rem",
+      fontStyle: "normal",
+    },
+    tableCell: {
+      color: "red",
+    },
   },
 });
 
@@ -28,6 +37,9 @@ const useStyles = makeStyles({
 
 export default function DenseTable(props) {
   const classes = useStyles();
+  const BASE =
+    // process.env.BASE_URL
+    "https://go-tinly.onrender.com" + "/r/";
 
   return (
     <TableContainer component={Paper}>
@@ -50,7 +62,10 @@ export default function DenseTable(props) {
               <TableCell component="th" scope="row">
                 {row.url}
               </TableCell>
-              <TableCell align="right">{row.short_url}</TableCell>
+              <TableCell align="right">
+                {" "}
+                <a href={`${BASE}` + row.short_url}>{row.short_url}</a>
+              </TableCell>
               <TableCell align="right">{row.Hits}</TableCell>
               <TableCell align="right">{row.Comments}</TableCell>
               <TableCell align="right">{row.Medium}</TableCell>

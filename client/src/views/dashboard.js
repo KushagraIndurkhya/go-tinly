@@ -27,9 +27,6 @@ const tempData = [
   },
 ];
 export default function Dashboard(props) {
-  const BASE =
-    // process.env.BASE_URL
-    "https://go-tinly.onrender.com" + "/r/";
   return (
     // <div className="Url_tab_container">
     //   <div className="Url_tab">
