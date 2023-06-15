@@ -12,8 +12,8 @@ import (
 )
 
 type resp struct {
-	UserInfo models.User       `json:"userInfo"`
-	Urls     []models.URL_INFO `json:"urls"`
+	UserInfo models.User                `json:"userInfo"`
+	Urls     []models.URL_INFO_RESPONSE `json:"urls"`
 }
 
 func Dash(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +37,7 @@ func Dash(w http.ResponseWriter, r *http.Request) {
 	} else {
 		info, _ := psql.Get(id)
 		url_arr, _ := psql.Get_URLs(id)
-		url_inf_arr := []models.URL_INFO{}
+		url_inf_arr := []models.URL_INFO_RESPONSE{}
 		for i := range url_arr {
 
 			inf, err := redis.Get_info(url_arr[i])

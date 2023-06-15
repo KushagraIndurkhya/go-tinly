@@ -9,7 +9,6 @@ type User struct {
 	Email string
 	Name  string
 	Limit int
-	// URL   pq.StringArray `gorm:"type:varchar(64)[]"`
 	//TODO: Add Access & Refresh token
 }
 type UserInfo struct {
@@ -22,14 +21,25 @@ type User_URL struct {
 	gorm.Model
 
 	Short      string
+	Comments   string
+	Medium     string
+	Source     string
+	Campaign   string
+	Keyword    string
 	Created_by string
+
 	// Health     bool
 }
 
-type URL_INFO struct {
+type URL_INFO_RESPONSE struct {
 	Url        string `json:"url"`
 	Short      string `json:"short_url"`
 	Count      int    `json:"Hits"`
+	Comments   string `json:"Comments"`
+	Medium     string `json:"Medium"`
+	Source     string `json:"Source"`
+	Campaign   string `json:"Campaign"`
+	Keyword    string `json:"Keyword"`
 	Created_by string `json:"Created_by,omitempty"`
 	Created_at int64  `json:"Created_at"`
 }

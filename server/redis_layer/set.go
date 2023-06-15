@@ -3,17 +3,18 @@ package redis_layer
 import (
 	"fmt"
 	"time"
-
-	"github.com/KushagraIndurkhya/go-tinly/utills"
 )
 
-func Set(req *Url_req) (string, error) {
+func Set(req *Url_req,key string) (string, error) {
 	val, err := Get_Val(req)
 	if err != nil {
 		fmt.Print(req, "unable to marshal")
 		return "", err
 	}
-	key := utills.GenKey(5)
+	is_available := CheckAvailability(key)
+	if !is_available {
+		return "", fmt.Errorf("URL ALREADY EXISTS")
+	} 
 	err = Url_db.Set(key, val, time.Duration(req.Expiry)*time.Second).Err()
 	if err != nil {
 		fmt.Print(req, "unable to set URL")
@@ -27,10 +28,10 @@ func Set(req *Url_req) (string, error) {
 	return key, nil
 }
 
-func CheckAvailability(req *Url_req) bool {
-	_, err := Url_db.Get(req.Url).Result()
+func CheckAvailability(key string) bool {
+	_, err := Url_db.Get(key).Result()
 	if err != nil {
-		return false
+		return true
 	}
-	return true
+	return false
 }

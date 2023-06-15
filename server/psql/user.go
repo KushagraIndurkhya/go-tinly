@@ -9,7 +9,7 @@ import (
 
 func Save(u *models.UserInfo) error {
 	//TODO:Check validity of data in json
-	tup := models.User{Id: u.Id, Email: u.Email, Name: u.Name, Limit: 10}
+	tup := models.User{Id: u.Id, Email: u.Email, Name: u.Name, Limit: 1000}
 	err := PSQL_DB.Debug().Create(&tup).Error
 
 	if err != nil {

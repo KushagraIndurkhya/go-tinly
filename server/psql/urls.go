@@ -6,9 +6,9 @@ import (
 	"github.com/KushagraIndurkhya/go-tinly/models"
 )
 
-func Add_URL(id string, url string) error {
+func Add_URL(id string, url string,comments string,medium string,source string,campaign string,keyword string ) error {
 
-	tup := models.User_URL{Short: url, Created_by: id}
+	tup := models.User_URL{Short: url, Created_by: id, Comments: comments, Medium: medium, Source: source, Campaign: campaign, Keyword: keyword}
 	err := PSQL_DB.Debug().Create(&tup).Error
 	if err != nil {
 		return err
@@ -35,6 +35,8 @@ func Get_URLs(id string) ([]string, error) {
 	return urls, nil
 }
 
-func Del_URL(sh string) {
+func Del_URL(sh string) error {
+	//Return Error
 	PSQL_DB.Where("short = ?", sh).Delete(&models.User_URL{})
+	return nil
 }
