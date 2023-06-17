@@ -5,9 +5,17 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"sync"
+	"sync/atomic"
 
 	"github.com/KushagraIndurkhya/go-tinly/models"
 	"github.com/go-redis/redis"
+)
+
+var (
+	counterMutex sync.Mutex
+	wg           sync.WaitGroup
+	stopFlag     int32
 )
 
 func Get(key string) (string, string, error) {
@@ -19,16 +27,21 @@ func Get(key string) (string, string, error) {
 	} else if err != nil {
 		panic(err)
 	}
-	Url_db.Incr(key + "-count").Result()
-	// fmt.Println(result)
-
-	count, err := Url_db.Get(key + "-count").Result()
-	if err == redis.Nil {
-		log.Printf("%s count not found", key)
-	} else if err != nil {
+	// Url_db.Incr(key + "-count").Result()
+	// count, err := Url_db.Get(key + "-count").Result()
+	// if err == redis.Nil {
+	// 	log.Printf("%s count not found", key)
+	// } else if err != nil {
+	// 	panic(err)
+	// }
+	// return val, count, nil
+	// Push the key into the queue
+	_, err = Url_db.LPush("increment-queue", key).Result()
+	if err != nil {
 		panic(err)
 	}
-	return val, count, nil
+
+	return val, "", nil
 }
 func Get_info(info *models.URL_INFO_RESPONSE) (*models.URL_INFO_RESPONSE, error) {
 	key := info.Short
@@ -51,4 +64,43 @@ func Get_info(info *models.URL_INFO_RESPONSE) (*models.URL_INFO_RESPONSE, error)
 	info.Url = res.Url
 	info.Count = count_int
 	return info, nil
+}
+func StartCounterProcessor() {
+	wg.Add(1)
+	go processIncrementQueue()
+}
+
+func StopCounterProcessor() {
+	atomic.StoreInt32(&stopFlag, 1)
+	wg.Wait()
+}
+
+func processIncrementQueue() {
+	defer wg.Done()
+
+	for {
+		// Check if we should stop processing
+		if atomic.LoadInt32(&stopFlag) == 1 {
+			return
+		}
+
+		// Pop a key from the queue
+		key, err := Url_db.RPop("increment-queue").Result()
+		if err == redis.Nil {
+			// Queue is empty, continue processing
+			continue
+		} else if err != nil {
+			log.Printf("Error while popping from queue: %s", err.Error())
+			continue
+		}
+
+		// Increment the counter for the key
+		counterMutex.Lock()
+		_, err = Url_db.Incr(key + "-count").Result()
+		counterMutex.Unlock()
+
+		if err != nil {
+			log.Printf("Error while incrementing counter for key %s: %s", key, err.Error())
+		}
+	}
 }

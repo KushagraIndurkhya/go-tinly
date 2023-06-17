@@ -10,6 +10,7 @@ import (
 	"github.com/KushagraIndurkhya/go-tinly/handlers"
 	"github.com/KushagraIndurkhya/go-tinly/middleware"
 	"github.com/KushagraIndurkhya/go-tinly/psql"
+	"github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	redis "github.com/KushagraIndurkhya/go-tinly/redis_layer"
 	r "github.com/go-redis/redis"
 	"github.com/gorilla/mux"
@@ -71,6 +72,7 @@ func main() {
 
 	app := new(App)
 	app.Init()
+	redis_layer.StartCounterProcessor()
 	app.Run()
-
+	redis_layer.StopCounterProcessor()
 }
